@@ -1,0 +1,64 @@
+{
+  "name": "rollup-typescript-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "typings": "dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rollup -c -w",
+    "lint": "tslint src/**/*.{ts,tsx} ",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "test": "jest",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "rollup -c",
+    "build": "npm run build:types && npm run build:js",
+    "release": "npm run build && git commit -am \"v\"$npm_package_version && git tag \"v\"$npm_package_version && git push && git push --tags && npm publish --access"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx}": [
+      "prettier --write",
+      "tslint",
+      "git add"
+    ]
+  },
+  "keywords": [],
+  "author": "xg4 <xingor4@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.11",
+    "husky": "^1.3.1",
+    "jest": "^24.5.0",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "rollup": "^1.6.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-terser": "^4.0.4",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.3333"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xg4/rollup-typescript-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xg4/rollup-typescript-boilerplate/issues"
+  },
+  "homepage": "https://github.com/xg4/rollup-typescript-boilerplate#readme"
+}
