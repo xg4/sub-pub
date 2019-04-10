@@ -19,7 +19,9 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "rollup -c",
     "build": "npm run build:types && npm run build:js",
-    "release": "npm run build && git commit -am \"v\"$npm_package_version && git tag \"v\"$npm_package_version && git push && git push --tags && npm publish --access"
+    "release:commit": "cross-var git commit -am \"v\"$npm_package_version",
+    "release:tag": "cross-var git tag \"v\"$npm_package_version -m \"build: release \"$npm_package_version",
+    "release": "npm run release:commit && npm run release:tag && git push --follow-tags"
   },
   "husky": {
     "hooks": {
@@ -41,6 +43,7 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.11",
+    "cross-var": "^1.1.0",
     "husky": "^1.3.1",
     "jest": "^24.7.1",
     "lint-staged": "^8.1.5",
@@ -61,5 +64,8 @@
   "bugs": {
     "url": "https://github.com/xg4/rollup-typescript-boilerplate/issues"
   },
-  "homepage": "https://github.com/xg4/rollup-typescript-boilerplate#readme"
+  "homepage": "https://github.com/xg4/rollup-typescript-boilerplate#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

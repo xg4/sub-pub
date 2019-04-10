@@ -1,0 +1,43 @@
+language: node_js
+
+sudo: required
+
+node_js:
+  - '10'
+
+os: linux
+
+install:
+  - yarn
+
+script:
+  - npm run lint
+  - npm run test
+
+before_deploy:
+  - npm run build && cd ./examples && yarn && npm run build
+
+deploy:
+  # npm release
+  - provider: npm
+    skip_cleanup: true
+    email: $NPM_EMAIL
+    api_key: $NPM_TOKEN
+    on:
+      tags: true
+  # deploy github pages
+  - provider: pages
+    local_dir: ./examples/dist
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    on:
+      branch: master
+
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+cache:
+  yarn: true
